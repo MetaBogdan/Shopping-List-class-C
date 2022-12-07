@@ -21,8 +21,6 @@ const TodoItem = ({
     dispatch(removeTodo(id));
   };
 
-  console.log(img);
-
   return (
     <ol key={id}>
       <Container>

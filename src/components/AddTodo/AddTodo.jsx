@@ -79,7 +79,6 @@ export const AddTodo = () => {
 
     let objectEl = data.find((el) => el.label === event.target.value);
     let elImg = objectEl.img;
-    console.log(elImg);
     if (elImg === "") {
       setIsElImgAvaliable(false);
       //elImg = "img/product-group/custom.png";

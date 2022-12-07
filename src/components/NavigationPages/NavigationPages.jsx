@@ -20,7 +20,6 @@ export const NavigationPages = () => {
   const dispatch = useDispatch();
   const handleCloseMainMenu = (event) => {
     dispatch(changePage(event.target.innerText));
-    console.log(event.target.innerText);
   };
 
   return (

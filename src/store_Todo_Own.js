@@ -32,7 +32,6 @@ export const sliceTodo = createSlice({
     },
     removeTodo: {
       reducer: (state, actions) => {
-        // console.log(actions.payload);
         const id = actions.payload;
         return state.filter((todo) => todo.id !== id);
       },
@@ -49,10 +48,6 @@ export const sliceTodo = createSlice({
 
 export const { addTodo, removeTodo, toggleTodo } = sliceTodo.actions;
 
-//const initialState_page = [{ page: "Grosery" }];
-/*const initialState_page = [
-  { page: "Grocery", addImgComponent: "img/product-group/grocery.png" },
-];*/
 const initialState_page = "Grocery";
 export const slicePage = createSlice({
   name: "@@pages",
@@ -60,7 +55,6 @@ export const slicePage = createSlice({
   reducers: {
     changePage: {
       reducer: (state, action) => {
-        //   console.log(action.payload);
         return (state = action.payload);
       },
     },
