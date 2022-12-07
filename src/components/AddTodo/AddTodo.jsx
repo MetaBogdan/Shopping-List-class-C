@@ -32,10 +32,10 @@ import { meatFishList } from "../../categories/categories-products/meatfish";
 
 export const AddTodo = () => {
   const [text, setText] = useState("");
-  const [weighttext, setWeighttext] = useState("");
-  const [amounttext, setAmounttext] = useState("");
-  const [pricetext, setPricetext] = useState("");
-  const [imgtext, setImgtext] = useState("");
+  const [weightText, setWeighttext] = useState("");
+  const [amountText, setAmounttext] = useState("");
+  const [priceText, setPricetext] = useState("");
+  const [imgText, setImgtext] = useState("");
   const [isElImgAvaliable, setIsElImgAvaliable] = useState(false);
   const [flagShowSelector, setflagShowSelector] = useState(true);
   const [textSelectorTodo, setTextSelectorTodo] = useState("");
@@ -49,7 +49,6 @@ export const AddTodo = () => {
   const pageImage = getPageImageSelector(page);
 
   useEffect(() => {
-    //pageImage = getPageImageSelector(page);
     setTextSelectorTodo("");
     if (page === "Other goods") {
       setflagShowSelector(false);
@@ -81,7 +80,6 @@ export const AddTodo = () => {
     let elImg = objectEl.img;
     if (elImg === "") {
       setIsElImgAvaliable(false);
-      //elImg = "img/product-group/custom.png";
     } else {
       setIsElImgAvaliable(true);
     }
@@ -97,15 +95,15 @@ export const AddTodo = () => {
       textTodo = textSelectorTodo;
     }
 
-    if (textTodo !== "") {
+    if (textTodo) {
       const todo = {
         id: nanoid(),
         text: textTodo,
         completed: false,
-        weight: weighttext,
-        amount: amounttext,
-        price: pricetext,
-        img: imgtext,
+        weight: weightText,
+        amount: amountText,
+        price: priceText,
+        img: imgText,
       };
       dispatch(addTodo(todo));
     }
@@ -180,12 +178,12 @@ export const AddTodo = () => {
             <Grid container spacing={4}>
               <Grid item xs={3}>
                 <FormControl sx={{ m: 1, minWidth: 100 }}>
-                  <InputLabel>{"Weight"}</InputLabel>
+                  <InputLabel>Weight</InputLabel>
                   <Select
-                    value={weighttext}
+                    value={weightText}
                     onChange={handleChangeWeightTextSelector}
                     autoWidth
-                    label={weighttext}
+                    label={weightText}
                   >
                     <MenuItem value="">
                       <em>None</em>
@@ -201,12 +199,12 @@ export const AddTodo = () => {
               </Grid>
               <Grid item xs={3}>
                 <FormControl sx={{ m: 1, minWidth: 100 }}>
-                  <InputLabel>{"Amount"}</InputLabel>
+                  <InputLabel>Amount</InputLabel>
                   <Select
-                    value={amounttext}
+                    value={amountText}
                     onChange={handleChangeAmountTextSelector}
                     autoWidth
-                    label={amounttext}
+                    label={amountText}
                   >
                     <MenuItem value="">
                       <em>None</em>
@@ -222,12 +220,12 @@ export const AddTodo = () => {
               </Grid>
               <Grid item xs={3}>
                 <FormControl sx={{ m: 1, minWidth: 100 }}>
-                  <InputLabel>{"Price"}</InputLabel>
+                  <InputLabel>Price</InputLabel>
                   <Select
-                    value={pricetext}
+                    value={priceText}
                     onChange={handleChangePriceTextSelector}
                     autoWidth
-                    label={pricetext}
+                    label={priceText}
                   >
                     <MenuItem value="">
                       <em>None</em>
@@ -244,7 +242,7 @@ export const AddTodo = () => {
               <Grid item xs={2}>
                 {isElImgAvaliable && (
                   <img
-                    src={imgtext}
+                    src={imgText}
                     height="100px"
                     weight="100px"
                     alt={page}

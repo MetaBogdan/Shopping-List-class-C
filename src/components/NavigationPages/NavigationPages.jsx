@@ -18,8 +18,8 @@ const pages = [
 
 export const NavigationPages = () => {
   const dispatch = useDispatch();
-  const handleCloseMainMenu = (event) => {
-    dispatch(changePage(event.target.innerText));
+  const handleCloseMainMenu = (page) => {
+    dispatch(changePage(page));
   };
 
   return (
@@ -27,7 +27,7 @@ export const NavigationPages = () => {
       <ul className="container nav-block fix-align-items">
         {pages.map((page) => {
           return (
-            <MenuItem key={page} onClick={handleCloseMainMenu}>
+            <MenuItem key={page} onClick={() => handleCloseMainMenu(page)}>
               <Typography textAlign="center">
                 <Link className="nav-block__menu-item-link">{page}</Link>
               </Typography>
