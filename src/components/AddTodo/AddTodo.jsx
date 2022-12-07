@@ -15,7 +15,7 @@ import { Add, Close } from "@mui/icons-material";
 import "./addTodo.css";
 import { addTodo } from "../../store_Todo_Own";
 import { nanoid } from "@reduxjs/toolkit";
-//import { SelectChangeEvent } from "@mui/material/Select";
+
 import {
   amountList,
   priceList,
@@ -32,12 +32,13 @@ import { meatFishList } from "../../categories/categories-products/meatfish";
 
 export const AddTodo = () => {
   const [text, setText] = useState("");
-  const [weighttext, setWeighttext] = useState("");
-  const [amounttext, setAmounttext] = useState("");
-  const [pricetext, setPricetext] = useState("");
+  const [weightText, setWeighttext] = useState("");
+  const [amountText, setAmounttext] = useState("");
+  const [priceText, setPricetext] = useState("");
+  const [imgText, setImgtext] = useState("");
+  const [isElImgAvaliable, setIsElImgAvaliable] = useState(false);
   const [flagShowSelector, setflagShowSelector] = useState(true);
   const [textSelectorTodo, setTextSelectorTodo] = useState("");
-
   const dispatch = useDispatch();
 
   const page = useSelector((state) => {
@@ -46,15 +47,15 @@ export const AddTodo = () => {
 
   const data = getDataForToDoSelector(page);
   const pageImage = getPageImageSelector(page);
-  //console.log(pageImage);
+
   useEffect(() => {
-    //pageImage = getPageImageSelector(page);
     setTextSelectorTodo("");
     if (page === "Other goods") {
       setflagShowSelector(false);
     } else {
       setflagShowSelector(true);
     }
+    setIsElImgAvaliable(false);
   }, [page]);
 
   const handleChangeText = (event) => {
@@ -74,7 +75,15 @@ export const AddTodo = () => {
 
   const handleChangeTextSelectorTodo = (event) => {
     setTextSelectorTodo(event.target.value);
-    console.log(event);
+
+    let objectEl = data.find((el) => el.label === event.target.value);
+    let elImg = objectEl.img;
+    if (elImg === "") {
+      setIsElImgAvaliable(false);
+    } else {
+      setIsElImgAvaliable(true);
+    }
+    setImgtext(elImg);
   };
 
   const createTodo = (e) => {
@@ -86,21 +95,25 @@ export const AddTodo = () => {
       textTodo = textSelectorTodo;
     }
 
-    const todo = {
-      id: nanoid(),
-      text: textTodo,
-      completed: false,
-      weight: weighttext,
-      amount: amounttext,
-      price: pricetext,
-    };
-    dispatch(addTodo(todo));
-
+    if (textTodo) {
+      const todo = {
+        id: nanoid(),
+        text: textTodo,
+        completed: false,
+        weight: weightText,
+        amount: amountText,
+        price: priceText,
+        img: imgText,
+      };
+      dispatch(addTodo(todo));
+    }
     setText("");
     setWeighttext("");
     setAmounttext("");
     setPricetext("");
     setTextSelectorTodo("");
+    setImgtext("");
+    setIsElImgAvaliable(false);
   };
 
   return (
@@ -118,44 +131,42 @@ export const AddTodo = () => {
               <Grid item xs={2}>
                 <img
                   src={pageImage}
-                  height="100px"
-                  weight="100px"
+                  height="80px"
+                  weight="80px"
                   alt={page}
                 ></img>
               </Grid>
 
               {!flagShowSelector && (
-                <Grid item xs={2}>
+                <Grid item xs={8}>
                   <TextField
                     label="I will do this"
                     variant="standard"
                     onChange={handleChangeText}
-                    required={true}
                     value={text}
-                  />{" "}
+                  />
                 </Grid>
               )}
               {flagShowSelector && (
                 <Grid item xs={4}>
                   <FormControl sx={{ m: 1, minWidth: 400 }}>
-                    <InputLabel id="demo-simple-select-autowidth-label">
-                      {page}
-                    </InputLabel>
+                    <InputLabel>{page}</InputLabel>
                     <Select
-                      labelId="demo-simple-select-autowidth-label"
-                      id="demo-simple-select-autowidth"
                       value={textSelectorTodo}
                       onChange={handleChangeTextSelectorTodo}
                       autoWidth
                       label={page}
-                      defaultValue="choose"
                     >
                       <MenuItem value="">
                         <em>None</em>
                       </MenuItem>
 
                       {data.map((value) => (
-                        <MenuItem key={value.id} value={value.label}>
+                        <MenuItem
+                          key={value.id}
+                          value={value.label}
+                          id={value.id}
+                        >
                           {value.label}
                         </MenuItem>
                       ))}
@@ -167,16 +178,12 @@ export const AddTodo = () => {
             <Grid container spacing={4}>
               <Grid item xs={3}>
                 <FormControl sx={{ m: 1, minWidth: 100 }}>
-                  <InputLabel id="demo-simple-select-autowidth-label">
-                    {"Weight"}
-                  </InputLabel>
+                  <InputLabel>Weight</InputLabel>
                   <Select
-                    labelId="demo-simple-select-autowidth-label"
-                    id="demo-simple-select-autowidth"
-                    value={weighttext}
+                    value={weightText}
                     onChange={handleChangeWeightTextSelector}
                     autoWidth
-                    label={weighttext}
+                    label={weightText}
                   >
                     <MenuItem value="">
                       <em>None</em>
@@ -192,16 +199,12 @@ export const AddTodo = () => {
               </Grid>
               <Grid item xs={3}>
                 <FormControl sx={{ m: 1, minWidth: 100 }}>
-                  <InputLabel id="demo-simple-select-autowidth-label">
-                    {"Amount"}
-                  </InputLabel>
+                  <InputLabel>Amount</InputLabel>
                   <Select
-                    labelId="demo-simple-select-autowidth-label"
-                    id="demo-simple-select-autowidth"
-                    value={amounttext}
+                    value={amountText}
                     onChange={handleChangeAmountTextSelector}
                     autoWidth
-                    label={amounttext}
+                    label={amountText}
                   >
                     <MenuItem value="">
                       <em>None</em>
@@ -217,16 +220,12 @@ export const AddTodo = () => {
               </Grid>
               <Grid item xs={3}>
                 <FormControl sx={{ m: 1, minWidth: 100 }}>
-                  <InputLabel id="demo-simple-select-autowidth-label">
-                    {"Price"}
-                  </InputLabel>
+                  <InputLabel>Price</InputLabel>
                   <Select
-                    labelId="demo-simple-select-autowidth-label"
-                    id="demo-simple-select-autowidth"
-                    value={pricetext}
+                    value={priceText}
                     onChange={handleChangePriceTextSelector}
                     autoWidth
-                    label={pricetext}
+                    label={priceText}
                   >
                     <MenuItem value="">
                       <em>None</em>
@@ -241,12 +240,14 @@ export const AddTodo = () => {
                 </FormControl>
               </Grid>
               <Grid item xs={2}>
-                <img
-                  src={pageImage}
-                  height="100px"
-                  weight="100px"
-                  alt={page}
-                ></img>
+                {isElImgAvaliable && (
+                  <img
+                    src={imgText}
+                    height="100px"
+                    weight="100px"
+                    alt={page}
+                  ></img>
+                )}
               </Grid>
             </Grid>
 

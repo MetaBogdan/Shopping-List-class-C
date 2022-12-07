@@ -3,16 +3,6 @@ import { useSelector } from "react-redux";
 
 import TodoItem from "../TodoItem/TodoItem";
 
-/*interface ITodoList {
-  todo: any;
-  todoNo: any;
-}
- const page = useSelector((state) => {
-    console.log(page);
-    return state.page;
-  });
-*/
-
 const ToDoList = () => {
   const todos = useSelector((state) => {
     return state.todos;
@@ -28,5 +18,3 @@ const ToDoList = () => {
 };
 
 export default ToDoList;
-/*{ console.log(todo) } completed={todo.completed}
-          text={todo.text} */
