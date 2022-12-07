@@ -3,20 +3,20 @@ import { configureStore, createSlice, nanoid } from "@reduxjs/toolkit";
 const initialState_todo = [
   {
     id: nanoid(),
-    text: "Test 1",
+    text: "Батончики шоколадные",
     completed: false,
-    img: "",
+    img: "img/product/dessert/chocolateBar.png",
     weight: "200 гр",
-    amount: "20 шт",
-    price: "200 usd",
+    amount: "10 шт",
+    price: "50 usd",
   },
   {
     id: nanoid(),
-    text: "Test 2",
+    text: "Мороженное",
     completed: false,
-    img: "",
-    weight: "100 гр",
-    amount: "10 шт",
+    img: "img/product/dessert/iceCream.png",
+    weight: "1 кг",
+    amount: "20 шт",
     price: "100 usd",
   },
 ];

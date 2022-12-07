@@ -12,26 +12,16 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
 import { removeTodo, toggleTodo } from "../../store_Todo_Own";
 
-const TodoItem = ({ todo: { id, completed, text, weight, amount, price } }) => {
+const TodoItem = ({
+  todo: { id, completed, text, weight, amount, price, img },
+}) => {
   const dispatch = useDispatch();
 
   const handlerDelete = (id) => {
     dispatch(removeTodo(id));
   };
 
-  /* onClick={() => handlerLog(id, completed, text)}
-  const handlerLog = (id, completed, text) => {
-    console.log(id, completed, text);
-  };
-     data = weightList;
-
-      break;
-    case "amountList":
-      data = amountList;
-      break;
-    case "priceList":
-      data = priceList;
-*/
+  console.log(img);
 
   return (
     <ol key={id}>
@@ -53,6 +43,7 @@ const TodoItem = ({ todo: { id, completed, text, weight, amount, price } }) => {
                 onChange={() => dispatch(toggleTodo(id))}
                 color="success"
               />
+              <img src={img} height="50px" weight="50px" alt={img} />
               {text + " " + weight + " " + amount + " " + price}
               <IconButton
                 aria-label="delete"
@@ -73,30 +64,3 @@ const TodoItem = ({ todo: { id, completed, text, weight, amount, price } }) => {
 };
 
 export default TodoItem;
-/*
-interface Props {
-  task: ITask;
-  completeTask(taskNameToDelete: string): void;
-}
-
-const TodoItem = ({ task, completeTask }: Props) => {
-  const dispatch = useDispatch();
-  return (
-    <div className="task">
-      <div className="content">
-        <span>{task.taskName}</span>
-        <span>{task.deadline}</span>
-      </div>
-      <button
-        onClick={() => {
-          completeTask(task.taskName);
-        }}
-      >
-        X
-      </button>
-    </div>
-  );
-};
-
-export default TodoItem;
-*/

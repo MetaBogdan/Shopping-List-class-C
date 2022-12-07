@@ -1,8 +1,8 @@
 import { MenuItem, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import "./NavigationPages.css";
-import { nanoid } from "@reduxjs/toolkit";
+
 import { changePage } from "../../store_Todo_Own";
 import { useDispatch } from "react-redux";
 
@@ -17,12 +17,10 @@ const pages = [
 ];
 
 export const NavigationPages = () => {
-  const [page, setPage] = useState("");
   const dispatch = useDispatch();
   const handleCloseMainMenu = (event) => {
-    setPage(event.target.innerHTML);
-    dispatch(changePage(event.target.innerHTML));
-    // console.log(event.target.innerHTML);
+    dispatch(changePage(event.target.innerText));
+    console.log(event.target.innerText);
   };
 
   return (
@@ -30,19 +28,14 @@ export const NavigationPages = () => {
       <ul className="container nav-block fix-align-items">
         {pages.map((page) => {
           return (
-            <div key={nanoid()}>
-              <MenuItem key={page} onClick={handleCloseMainMenu}>
-                <Typography textAlign="center">
-                  <li className="nav-block__menu-item">
-                    <Link className="nav-block__menu-item-link">{page}</Link>
-                  </li>
-                </Typography>
-              </MenuItem>
-            </div>
+            <MenuItem key={page} onClick={handleCloseMainMenu}>
+              <Typography textAlign="center">
+                <Link className="nav-block__menu-item-link">{page}</Link>
+              </Typography>
+            </MenuItem>
           );
         })}
       </ul>
     </nav>
   );
 };
-//to={"/${page}"}
