@@ -26,7 +26,7 @@ export const sliceTodo = createSlice({
   initialState: initialState_todo,
   reducers: {
     addTodo: (state, actions) => {
-      state.push(actions.payload);
+      state.unshift(actions.payload);
     },
 
     removeTodo: (state, actions) => {
