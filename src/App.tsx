@@ -33,10 +33,6 @@ export const StyledApp = styled.div`
     color: white;
   }
 
-  .App-link {
-    color: #61dafb;
-  }
-
   @keyframes App-logo-spin {
     from {
       transform: rotate(0deg);

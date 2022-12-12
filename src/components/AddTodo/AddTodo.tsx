@@ -78,9 +78,7 @@ export const AddTodo = () => {
     setIsElImgAvaliable(false);
   }, [page]);
 
-  const handleChangeText = (event: {
-    target: { value: React.SetStateAction<string> };
-  }) => {
+  const handleChangeText = (event: React.BaseSyntheticEvent) => {
     setText(event.target.value);
   };
 
@@ -119,7 +117,7 @@ export const AddTodo = () => {
     }
   };
 
-  const createTodo = (e: { preventDefault: () => void }) => {
+  const createTodo = (e: React.SyntheticEvent) => {
     e.preventDefault();
     let textTodo;
     if (page === "Other goods") {

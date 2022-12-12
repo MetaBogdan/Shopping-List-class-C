@@ -31,7 +31,7 @@ const TodoItem: React.FC<TodosProps> = ({
 }) => {
   const dispatch = useDispatch();
 
-  const handlerDelete = (id: string) => {
+  const handleDelete = (id: string) => {
     dispatch(removeTodo(id));
   };
 
@@ -54,7 +54,7 @@ const TodoItem: React.FC<TodosProps> = ({
                   aria-label="delete"
                   size="large"
                   onClick={() => {
-                    handlerDelete(id);
+                    handleDelete(id);
                   }}
                   color="error"
                 >
