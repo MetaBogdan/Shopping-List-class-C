@@ -12,7 +12,6 @@ import {
   Grid,
 } from "@mui/material/";
 import { Add, Close } from "@mui/icons-material";
-import "./addTodo.css";
 import { addTodo } from "../../store_Todo_Own";
 import { nanoid } from "@reduxjs/toolkit";
 
@@ -29,6 +28,27 @@ import { dessertList } from "../../categories/categories-products/dessert";
 import { customList } from "../../categories/categories-products/custom";
 import { semiFinishedList } from "../../categories/categories-products/semifinished";
 import { meatFishList } from "../../categories/categories-products/meatfish";
+import styled from "styled-components";
+
+const StyledItem = styled.div`
+   {
+    .selector_field {
+      max-width: 20em;
+      margin: 0.05em 0.3em 0.3em 0.3em;
+      padding-top: 0.3em;
+      background-color: #ffffff;
+      border-radius: 0.5em;
+    }
+    img_item_add_main {
+      height: 80px;
+      weight: 80px;
+    }
+    .img_item_add {
+      height: 50px;
+      weight: 50px;
+    }
+  }
+`;
 
 export const AddTodo = () => {
   const [text, setText] = useState("");
@@ -41,7 +61,7 @@ export const AddTodo = () => {
   const [textSelectorTodo, setTextSelectorTodo] = useState("");
   const dispatch = useDispatch();
 
-  const page = useSelector((state) => {
+  const page = useSelector((state: any) => {
     return state.pages;
   });
 
@@ -58,35 +78,46 @@ export const AddTodo = () => {
     setIsElImgAvaliable(false);
   }, [page]);
 
-  const handleChangeText = (event) => {
+  const handleChangeText = (event: React.BaseSyntheticEvent) => {
     setText(event.target.value);
   };
 
-  const handleChangeWeightTextSelector = (event) => {
+  const handleChangeWeightTextSelector = (event: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
     setWeighttext(event.target.value);
   };
 
-  const handleChangeAmountTextSelector = (event) => {
+  const handleChangeAmountTextSelector = (event: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
     setAmounttext(event.target.value);
   };
-  const handleChangePriceTextSelector = (event) => {
+  const handleChangePriceTextSelector = (event: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
     setPricetext(event.target.value);
   };
 
-  const handleChangeTextSelectorTodo = (event) => {
+  const handleChangeTextSelectorTodo = (event: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
     setTextSelectorTodo(event.target.value);
 
     let objectEl = data.find((el) => el.label === event.target.value);
-    let elImg = objectEl.img;
-    if (elImg === "") {
-      setIsElImgAvaliable(false);
-    } else {
-      setIsElImgAvaliable(true);
+
+    if (objectEl) {
+      let elImg = objectEl.img;
+      if (elImg === "") {
+        setIsElImgAvaliable(false);
+      } else {
+        setIsElImgAvaliable(true);
+      }
+      setImgtext(elImg);
     }
-    setImgtext(elImg);
   };
 
-  const createTodo = (e) => {
+  const createTodo = (e: React.SyntheticEvent) => {
     e.preventDefault();
     let textTodo;
     if (page === "Other goods") {
@@ -117,13 +148,11 @@ export const AddTodo = () => {
   };
 
   return (
-    <div>
+    <StyledItem>
       <Container maxWidth="sm">
         <form className="add_todo">
           <FormControl fullWidth={true}>
-            <Button variant="close">
-              <Close />
-            </Button>
+            <Close />
             <Typography gutterBottom variant="h5" component="div">
               {page}
             </Typography>
@@ -131,8 +160,7 @@ export const AddTodo = () => {
               <Grid item xs={2}>
                 <img
                   src={pageImage}
-                  height="80px"
-                  weight="80px"
+                  className="img_item_add_main"
                   alt={page}
                 ></img>
               </Grid>
@@ -161,7 +189,7 @@ export const AddTodo = () => {
                         <em>None</em>
                       </MenuItem>
 
-                      {data.map((value) => (
+                      {data.map((value: any) => (
                         <MenuItem
                           key={value.id}
                           value={value.label}
@@ -241,12 +269,7 @@ export const AddTodo = () => {
               </Grid>
               <Grid item xs={2}>
                 {isElImgAvaliable && (
-                  <img
-                    src={imgText}
-                    height="100px"
-                    weight="100px"
-                    alt={page}
-                  ></img>
+                  <img src={imgText} className="img_item_add" alt={page}></img>
                 )}
               </Grid>
             </Grid>
@@ -263,12 +286,12 @@ export const AddTodo = () => {
           </FormControl>
         </form>
       </Container>
-    </div>
+    </StyledItem>
   );
 };
 
-function getDataForToDoSelector(type) {
-  let data;
+function getDataForToDoSelector(type: any) {
+  let data: { id: number; label: string; img: string }[];
   switch (type) {
     case "Grocery":
       data = groceryList.products;
@@ -296,7 +319,7 @@ function getDataForToDoSelector(type) {
   return data;
 }
 
-function getPageImageSelector(type) {
+function getPageImageSelector(type: string) {
   let image;
   switch (type) {
     case "Grocery":
@@ -328,3 +351,6 @@ function getPageImageSelector(type) {
 }
 
 export default AddTodo;
+/*   <Button variant="close">
+              <Close />
+            </Button> */

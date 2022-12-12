@@ -25,23 +25,22 @@ export const sliceTodo = createSlice({
   name: "@@todos",
   initialState: initialState_todo,
   reducers: {
-    addTodo: {
-      reducer: (state, actions) => {
-        state.push(actions.payload);
-      },
+    addTodo: (state, actions) => {
+      state.push(actions.payload);
     },
-    removeTodo: {
-      reducer: (state, actions) => {
-        const id = actions.payload;
-        return state.filter((todo) => todo.id !== id);
-      },
+
+    removeTodo: (state, actions) => {
+      const id = actions.payload;
+      return state.filter((todo) => todo.id !== id);
     },
-    toggleTodo: {
-      reducer: (state, actions) => {
-        const id = actions.payload;
-        const todo = state.find((todo) => todo.id === id);
+
+    toggleTodo: (state, actions) => {
+      const id = actions.payload;
+
+      const todo = state.find((todo) => todo.id === id);
+      if (todo) {
         todo.completed = !todo.completed;
-      },
+      }
     },
   },
 });
@@ -53,10 +52,8 @@ export const slicePage = createSlice({
   name: "@@pages",
   initialState: initialState_page,
   reducers: {
-    changePage: {
-      reducer: (state, action) => {
-        return (state = action.payload);
-      },
+    changePage: (state, action) => {
+      return (state = action.payload);
     },
   },
 });
